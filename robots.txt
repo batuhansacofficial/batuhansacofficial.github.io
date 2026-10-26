@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://batuhansacofficial.github.io/sitemap.xml

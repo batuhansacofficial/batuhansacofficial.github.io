@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" fill="none">
+  <title>WeatherApiWrapper için API yanıtı ve hava durumu konsept görseli</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="900" gradientUnits="userSpaceOnUse"><stop stop-color="#44543E"/><stop offset="1" stop-color="#253A2B"/></linearGradient>
+    <filter id="shadow" x="60" y="60" width="1120" height="810" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="25"/></filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="1103" cy="99" r="282" stroke="#82916E" stroke-opacity=".2"/>
+  <circle cx="1103" cy="99" r="340" stroke="#82916E" stroke-opacity=".13"/>
+  <path d="M0 745H1200M0 756H1200" stroke="#82916E" stroke-opacity=".18"/>
+  <rect x="137" y="155" width="925" height="604" rx="14" fill="#142A1C" fill-opacity=".65" filter="url(#shadow)"/>
+  <g transform="rotate(-4 600 450)">
+    <rect x="112" y="121" width="976" height="647" rx="13" fill="#F1EFE3"/>
+    <path d="M112 165H1088" stroke="#D8D9C9"/>
+    <circle cx="139" cy="143" r="4" fill="#B9C0AA"/><circle cx="154" cy="143" r="4" fill="#CED1C0"/><circle cx="169" cy="143" r="4" fill="#CED1C0"/>
+    <rect x="438" y="135" width="325" height="16" rx="8" fill="#E1E3D6"/>
+    <text x="160" y="226" fill="#344C36" font-family="Georgia,serif" font-size="39" letter-spacing="-1.5">Weather API</text>
+    <rect x="936" y="195" width="101" height="34" rx="17" fill="#DFE6D4"/>
+    <circle cx="956" cy="212" r="4" fill="#5D7953"/>
+    <path d="M973 212H1017" stroke="#738667" stroke-width="4" stroke-linecap="round"/>
+    <path d="M160 250H1038" stroke="#C8CFBA"/>
+    <rect x="159" y="284" width="350" height="352" rx="5" fill="#E3E7D7"/>
+    <circle cx="340" cy="405" r="62" fill="#D47A40"/>
+    <path d="M340 316V300M340 510V494M251 405H235M445 405H429M277 342L266 331M403 468L414 479M277 468L266 479M403 342L414 331" stroke="#D47A40" stroke-width="5" stroke-linecap="round"/>
+    <path d="M262 462C240 462 222 445 222 424C222 404 237 388 256 386C265 353 290 334 320 338C347 341 367 363 369 389C389 391 404 407 404 426C404 446 388 462 368 462H262Z" fill="#F6F0DF"/>
+    <text x="211" y="574" fill="#36503A" font-family="Arial,sans-serif" font-size="66" letter-spacing="-4">22°</text>
+    <path d="M355 548H460M355 567H435M355 586H447" stroke="#9FAA8D" stroke-width="5" stroke-linecap="round"/>
+    <rect x="543" y="284" width="495" height="352" rx="5" fill="#263B2E"/>
+    <path d="M543 337H1038" stroke="#526448"/>
+    <rect x="565" y="299" width="63" height="24" rx="4" fill="#405A3C"/>
+    <text x="578" y="317" fill="#D4DFBE" font-family="Arial,sans-serif" font-weight="700" font-size="16" letter-spacing="1">GET</text>
+    <text x="651" y="317" fill="#D2DBC4" font-family="monospace" font-size="20">/ weather</text>
+    <text x="971" y="318" fill="#A8BC90" font-family="monospace" font-size="19">200</text>
+    <text x="575" y="387" fill="#E7E9D9" font-family="monospace" font-size="25">{</text>
+    <text x="599" y="433" fill="#A8BE96" font-family="monospace" font-size="25">"temperature"</text>
+    <text x="805" y="433" fill="#E3DFCA" font-family="monospace" font-size="25">:</text>
+    <text x="836" y="433" fill="#E7A270" font-family="monospace" font-size="25">22,</text>
+    <text x="599" y="479" fill="#A8BE96" font-family="monospace" font-size="25">"unit"</text>
+    <text x="700" y="479" fill="#E3DFCA" font-family="monospace" font-size="25">:</text>
+    <text x="730" y="479" fill="#E7A270" font-family="monospace" font-size="25">"°C",</text>
+    <text x="599" y="525" fill="#A8BE96" font-family="monospace" font-size="25">"cached"</text>
+    <text x="731" y="525" fill="#E3DFCA" font-family="monospace" font-size="25">:</text>
+    <text x="762" y="525" fill="#E7A270" font-family="monospace" font-size="25">true</text>
+    <text x="575" y="573" fill="#E7E9D9" font-family="monospace" font-size="25">}</text>
+    <path d="M159 677H1038" stroke="#C8CFBA"/>
+    <circle cx="174" cy="714" r="12" stroke="#6D805E" stroke-width="1.5"/>
+    <path d="M169 714L173 718L180 710" stroke="#6D805E" stroke-width="1.5"/>
+    <path d="M201 714H361M888 714H1038" stroke="#B0BBA0" stroke-width="5" stroke-linecap="round"/>
+  </g>
+</svg>

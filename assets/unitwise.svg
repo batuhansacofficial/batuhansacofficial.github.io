@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" fill="none">
+  <title>Unitwise için bir kilometreden bin metreye dönüşüm arayüzü konsept görseli</title>
+  <defs>
+    <filter id="shadow" x="80" y="100" width="1080" height="750" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="23"/></filter>
+    <pattern id="grid" patternUnits="userSpaceOnUse" width="52" height="52"><path d="M52 0H0V52" stroke="#A1B18F" stroke-opacity=".2" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1200" height="900" fill="#CAD8BA"/>
+  <rect width="1200" height="900" fill="url(#grid)"/>
+  <circle cx="1073" cy="123" r="236" fill="#DDE5CF" fill-opacity=".65"/>
+  <circle cx="111" cy="847" r="240" fill="#B9CBA7" fill-opacity=".5"/>
+  <rect x="138" y="169" width="940" height="565" rx="15" fill="#6C8058" fill-opacity=".3" filter="url(#shadow)"/>
+  <g transform="rotate(4 600 450)">
+    <rect x="112" y="143" width="976" height="596" rx="13" fill="#F5F3E8"/>
+    <path d="M112 189H1088" stroke="#D8DECC"/>
+    <circle cx="139" cy="166" r="4" fill="#A9B699"/><circle cx="154" cy="166" r="4" fill="#CAD1BB"/><circle cx="169" cy="166" r="4" fill="#CAD1BB"/>
+    <rect x="442" y="158" width="323" height="16" rx="8" fill="#E6E9DB"/>
+    <g transform="translate(162 229)">
+      <path d="M0 0V20C0 29 7 36 16 36C25 36 32 29 32 20V0" stroke="#3A583C" stroke-width="7"/>
+      <path d="M45 0V20C45 29 52 36 61 36C70 36 77 29 77 20V0" stroke="#8D9F77" stroke-width="7"/>
+    </g>
+    <text x="262" y="263" fill="#35533A" font-family="Arial,sans-serif" font-weight="700" font-size="37" letter-spacing="-1.8">unitwise</text>
+    <path d="M934 242H1037M963 255H1037" stroke="#869873" stroke-width="4" stroke-linecap="round"/>
+    <path d="M161 294H1039" stroke="#CDD6BF"/>
+    <rect x="162" y="324" width="148" height="39" rx="20" fill="#35563A"/>
+    <text x="190" y="350" fill="#F2F2E3" font-family="Arial,sans-serif" font-size="19">Uzunluk</text>
+    <text x="345" y="350" fill="#8B987E" font-family="Arial,sans-serif" font-size="19">Kütle</text>
+    <text x="449" y="350" fill="#8B987E" font-family="Arial,sans-serif" font-size="19">Sıcaklık</text>
+    <path d="M163 389H1039" stroke="#DEE3D3"/>
+    <rect x="162" y="421" width="379" height="196" rx="7" fill="#E7ECDC"/>
+    <text x="190" y="460" fill="#718563" font-family="Arial,sans-serif" font-size="19">Kilometre</text>
+    <text x="189" y="559" fill="#35513A" font-family="Arial,sans-serif" font-size="85" font-weight="500" letter-spacing="-5">1</text>
+    <text x="440" y="556" fill="#6B805C" font-family="Arial,sans-serif" font-size="31">km</text>
+    <path d="M493 451L499 457L505 451" stroke="#849875" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="659" y="421" width="379" height="196" rx="7" fill="#35563C"/>
+    <text x="687" y="460" fill="#BDCDA8" font-family="Arial,sans-serif" font-size="19">Metre</text>
+    <text x="685" y="559" fill="#F4F2DF" font-family="Arial,sans-serif" font-size="85" font-weight="500" letter-spacing="-5">1.000</text>
+    <text x="967" y="556" fill="#C4D3AD" font-family="Arial,sans-serif" font-size="31">m</text>
+    <path d="M990 451L996 457L1002 451" stroke="#B5C6A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="599" cy="519" r="30" fill="#E6D8AF"/>
+    <path d="M585 512H613M607 506L613 512L607 518M613 526H585M591 520L585 526L591 532" stroke="#64734D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M163 656H1038" stroke="#CFD7C1"/>
+    <path d="M163 690H402M800 690H1038" stroke="#B2C09F" stroke-width="4" stroke-linecap="round"/>
+    <path d="M163 681V700M201 685V695M240 685V695M279 681V700M318 685V695M357 685V695M400 681V700M801 681V700M840 685V695M879 685V695M918 681V700M957 685V695M996 685V695M1037 681V700" stroke="#93A780" stroke-width="2"/>
+    <text x="512" y="698" fill="#718563" font-family="Arial,sans-serif" font-size="19">1 km = 1.000 m</text>
+  </g>
+</svg>
