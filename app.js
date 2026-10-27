@@ -66,3 +66,20 @@ window.addEventListener('scroll', () => { if (!scrollQueued) { requestAnimationF
 window.addEventListener('resize', updateProgress);
 document.querySelector('#year').textContent = new Date().getFullYear();
 updateProgress();
+
+const copyEmailButton = document.querySelector('#copy-email');
+const contactEmail = document.querySelector('#contact-email');
+const copyEmailStatus = document.querySelector('#email-copy-status');
+copyEmailButton.addEventListener('click', async () => {
+  copyEmailStatus.textContent = '';
+  copyEmailButton.disabled = true;
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+    await navigator.clipboard.writeText(contactEmail.textContent.trim());
+    copyEmailStatus.textContent = 'E-posta adresi kopyalandı.';
+  } catch {
+    copyEmailStatus.textContent = 'Adres kopyalanamadı. Yukarıdaki adresi seçip kopyalayabilirsin.';
+  } finally {
+    copyEmailButton.disabled = false;
+  }
+});

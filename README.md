@@ -14,6 +14,10 @@ Personal portfolio and biography website, with a Turkish interface, selected .NE
 
 The website is plain HTML, CSS, and JavaScript. No build step or package installation is required.
 
+## Contact
+
+The contact section displays `batuhansac53@gmail.com`, a message link, and a copy-address button. The message link opens the visitor's email application with a prepared subject. The site does not submit or store messages. LinkedIn and GitHub remain available as alternative contact channels.
+
 ## Local preview
 
 Serve this directory with a static HTTP server. For example, with Python installed:
