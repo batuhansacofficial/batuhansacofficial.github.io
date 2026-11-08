@@ -1,14 +1,36 @@
-# Content sources
+# İçerik kaynakları
 
-Profile and project facts were checked on 26 October 2026.
+Son içerik kontrolü: 8 Kasım 2026.
 
-- Personal profile: https://github.com/batuhansacofficial/batuhansacofficial/blob/main/README.md
-- WeatherApiWrapper: https://github.com/batuhansacofficial/WeatherApiWrapper/blob/master/README.md
-- Unitwise: https://github.com/batuhansacofficial/UnitConverter/blob/main/README.md
-- Profile photo: public GitHub avatar at https://avatars.githubusercontent.com/u/175130127?s=800&v=4
-- LinkedIn link supplied by the owner: https://www.linkedin.com/in/batuhansacofficial/
-- Public contact email supplied by the owner on 27 October 2026: batuhansac53@gmail.com
+## Profil ve CV
 
-The biography is a Turkish adaptation of the public GitHub profile. No dates, employers, testimonials, project usage figures, or quantified outcomes are inferred. The project illustrations are original concept artwork and are labeled as such in the interface. They are not screenshots of the applications.
+- Güncel GitHub profili: https://github.com/batuhansacofficial/batuhansacofficial/blob/main/README.md
+- Güncel LinkedIn profili: https://www.linkedin.com/in/batuhansacofficial/
+- Profil fotoğrafı: https://avatars.githubusercontent.com/u/175130127?s=800&v=4
+- E-posta: sahibinin yayımlanmasını istediği `batuhansac53@gmail.com`
 
-The site is buildless. The public HTML, CSS, JavaScript, and assets are served from the repository root through GitHub Pages.
+Türkçe ve İngilizce teknik CV; .NET odağı, teknik beceriler, seçili projeler ve mevcut profil bağlantılarından oluşur. Eğitim, sertifika, işyeri, çalışma tarihi, konum, telefon ve e-posta ayrıntıları PDF'lerde yer almaz. Ham kişisel belgeler bu depoya eklenmez.
+
+## WeatherApiWrapper
+
+Kaynak sürüm: `d01b4d8eff014672cd2830bc9b1b2e95f6e761e7`.
+
+- https://github.com/batuhansacofficial/WeatherApiWrapper/tree/d01b4d8eff014672cd2830bc9b1b2e95f6e761e7
+- README, WeatherController, WeatherService, servis yapılandırması, hata middleware'i ve test kaynakları.
+- CI: https://github.com/batuhansacofficial/WeatherApiWrapper/actions/runs/31283932993
+- Görsellerin asılları: `docs/images/swagger-overview.png`, `swagger-current-cache-hit.png`, `swagger-validation-error.png`.
+
+Kaynak görsellerin dosya adları `.png` olsa da içerikleri JPEG'tir; sitede doğru `.jpg` uzantısıyla, özgün byte'ları korunarak kullanılır. Görüntüler gerçek yerel Swagger oturumlarıdır. İzole Redis ve deterministik yerel sağlayıcı verisi kullanılmıştır; güncel hava durumu değildir.
+
+## Unitwise
+
+Depo adı `Unitwise` olarak güncellenmiştir; eski `UnitConverter` adresi yönlenir. Kaynak sürüm: `41e56296a208b87577adcc49cffb8a1943a15660`.
+
+- https://github.com/batuhansacofficial/Unitwise/tree/41e56296a208b87577adcc49cffb8a1943a15660
+- README, mimari ve doğrulama belgeleri, ConversionService, UnitCatalog, API, Razor Pages ve test kaynakları.
+- CI: https://github.com/batuhansacofficial/Unitwise/actions/runs/39178205386
+- Canlı uygulama: https://unitwise.onrender.com/
+
+`unitwise-temperature.jpg` ve `unitwise-validation.jpg`, 8 Kasım 2026 tarihinde canlı uygulamada gerçek form gönderimleriyle alınmıştır: 20 °C -> 68 °F ve -1 K için mutlak sıfır doğrulama hatası.
+
+İncelemeler test kapsamını anlatır ve kayıtlı CI çalıştırmalarına bağlanır. Yeniden ölçülmemiş test sayısı, performans veya kapsam oranı yeni sonuç olarak sunulmaz.

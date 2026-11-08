@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f2eb">
+  <title>WeatherApiWrapper | Batuhan Saç</title>
+  <meta name="description" content="WeatherApiWrapper proje incelemesi: ASP.NET Core ile hava durumu API'si, Redis cache-aside, HTTP dayanıklılığı, standart hatalar ve gerçek Swagger ekranları.">
+  <link rel="canonical" href="https://batuhansac.dev/projeler/weather-api-wrapper/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="WeatherApiWrapper | Batuhan Saç">
+  <meta property="og:description" content="Dış servis çağrıları, Redis önbelleği ve belirgin API hata sözleşmeleri üzerine bir .NET portfolyo projesi.">
+  <meta property="og:url" content="https://batuhansac.dev/projeler/weather-api-wrapper/">
+  <meta property="og:image" content="https://batuhansac.dev/assets/screenshots/weather-overview.jpg">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../../case-study.css">
+</head>
+<body class="case-page">
+  <a class="skip-link" href="#main">İçeriğe geç</a>
+  <header class="header case-header">
+    <div class="container header-inner">
+      <a class="wordmark" href="../../" aria-label="Batuhan Saç, ana sayfa">batuhan<span class="logo-dot">.</span></a>
+      <nav class="case-nav" aria-label="Ana gezinme">
+        <a href="../../#projeler">Projeler</a>
+        <a href="../../#ozgecmis">Özgeçmiş</a>
+        <a href="../../#iletisim">İletişim</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container" id="main">
+    <nav class="case-breadcrumb" aria-label="İçerik yolu"><a href="../../">Ana sayfa</a><span aria-hidden="true">/</span><a href="../../#projeler">Projeler</a><span aria-hidden="true">/</span><span aria-current="page">WeatherApiWrapper</span></nav>
+    <section class="case-hero" aria-labelledby="case-title">
+      <p class="eyebrow">PROJE İNCELEMESİ / 01</p>
+      <h1 id="case-title">Weather<wbr>Api<wbr>Wrapper</h1>
+      <p class="case-lead">Hava durumu verisini sunarken dış servis bağımlılığını yönetmek. ASP.NET Core, Redis önbelleği ve sınırlandırılmış HTTP dayanıklılığı üzerine bir REST API.</p>
+      <div class="case-actions"><a class="button button-dark" href="https://github.com/batuhansacofficial/WeatherApiWrapper" target="_blank" rel="noopener noreferrer">Kaynak kodu <span aria-hidden="true">↗</span><span class="sr-only"> (yeni sekme)</span></a><a class="text-link" href="#ekranlar">Gerçek ekranları incele <span aria-hidden="true">↓</span></a></div>
+      <dl class="case-meta">
+        <div><dt>Çalışma</dt><dd>Kişisel portfolyo projesi</dd></div>
+        <div><dt>Teknolojiler</dt><dd>.NET 10 · ASP.NET Core · Redis · xUnit · Docker</dd></div>
+        <div><dt>Çalışma ortamı</dt><dd>Yerel API ve Swagger gösterimi</dd></div>
+      </dl>
+    </section>
+    <div class="case-layout">
+      <aside class="case-toc" aria-label="Sayfa içeriği">
+        <p>BU İNCELEMEDE</p>
+        <nav aria-label="İnceleme bölümleri"><ol><li><a href="#problem">01 / Problem</a></li><li><a href="#mimari">02 / İstek akışı</a></li><li><a href="#kararlar">03 / Teknik kararlar</a></li><li><a href="#ekranlar">04 / Gerçek ekranlar</a></li><li><a href="#kalite">05 / Test yaklaşımı</a></li><li><a href="#kapsam">06 / Kapsam</a></li></ol></nav>
+      </aside>
+      <article class="case-content" aria-label="WeatherApiWrapper proje incelemesi">
+        <section class="case-section" id="problem" aria-labelledby="problem-title">
+          <span class="case-number">01 / PROBLEM</span>
+          <h2 id="problem-title">Bir dış servisin etrafında, belirgin bir API.</h2>
+          <p>Hava durumu sağlayıcısının yanıtını doğrudan istemciye taşımak, uygulamayı sağlayıcının veri yapısına ve hata davranışına bağlar. Bu projede odağım, <strong>Visual Crossing verilerini ortak yanıt modellerine dönüştürmek</strong> ve güncel, tahmin ve geçmiş verilerini üç uç noktada sunmak oldu.</p>
+          <p>Tekrarlanan sorgularda Redis önbelleği devreye giriyor. Şehir, gün sayısı ve tarih doğrulaması API sınırında yapılıyor; sağlayıcı hataları ise istemcinin ayırt edebileceği HTTP durumlarına çevriliyor. Böylece veri çekme kadar, isteğin başarısız olduğu durumlar da sözleşmenin bir parçası oluyor.</p>
+        </section>
+        <section class="case-section" id="mimari" aria-labelledby="mimari-title">
+          <span class="case-number">02 / İSTEK AKIŞI</span>
+          <h2 id="mimari-title">Önce önbellek, gerektiğinde sağlayıcı.</h2>
+          <ol class="case-flow">
+            <li><strong>WeatherController</strong><span>Girdiyi doğrular; isteği IWeatherService üzerinden aktarır.</span></li>
+            <li><strong>WeatherService + Redis</strong><span>Normalize edilmiş sorgu anahtarıyla önbelleği kontrol eder.</span></li>
+            <li><strong>HttpClient</strong><span>Cache miss durumunda dayanıklılık kurallarıyla sağlayıcıyı çağırır.</span></li>
+            <li><strong>Ortak JSON yanıtı</strong><span>Veriyi yanıt modeline dönüştürür, süreli önbelleğe yazar ve döndürür.</span></li>
+          </ol>
+          <p><code>FromCache</code> alanı yanıtın kaynağını, <code>RetrievedAtUtc</code> ise verinin alındığı zamanı gösteriyor. Sağlayıcının gözlem zamanı ayrı bir alanda tutuluyor. Önbellekten dönen veri, yeni alınmış bir gözlem gibi sunulmuyor.</p>
+        </section>
+        <section class="case-section" id="kararlar" aria-labelledby="kararlar-title">
+          <span class="case-number">03 / TEKNİK KARARLAR</span>
+          <h2 id="kararlar-title">Hız, güncellik ve hata sınırları.</h2>
+          <div class="decision-grid">
+            <article><h3>Veri türüne göre cache süresi</h3><p>Mutlak saklama sınırı güncel veride 10 dakika, tahminde 30 dakika, geçmiş veride 12 saat. Ayrı sliding süreleri kullanılıyor. Bu tercih, sağlayıcı çağrılarını azaltırken farklı verilerin güncellik ihtiyacını gözetiyor.</p></article>
+            <article><h3>Redis hatasında devam</h3><p>Cache okuma veya yazma hatası, sağlayıcıdan yanıt alma yolunu kapatmıyor. Bunun karşılığı, önbellek kullanılamadığında dış servis çağrılarının artabilmesi. Çağıranın isteği iptal etmesi ise hata gibi yutulmuyor.</p></article>
+            <article><h3>Sınırlandırılmış yeniden deneme</h3><p>HttpClient hattında jitter içeren retry, deneme başına timeout, toplam timeout ve circuit breaker var. Toplam süre 20 saniye, deneme sınırı 8 saniye. Amaç, geçici sorunlara tolerans tanırken sınırsız beklemeyi önlemek.</p></article>
+            <article><h3>Ortak hata sözleşmesi</h3><p>Doğrulama, bulunamayan şehir, sağlayıcı sorunu ve timeout ayrı HTTP durumlarına eşleniyor. Hata gövdesinde durum, mesaj, izleme kimliği ve zaman bulunuyor; beklenmeyen iç hata ayrıntıları yanıt metnine taşınmıyor.</p></article>
+          </div>
+        </section>
+        <section class="case-section" id="ekranlar" aria-labelledby="ekranlar-title">
+          <span class="case-number">04 / GERÇEK EKRANLAR</span>
+          <h2 id="ekranlar-title">Swagger üzerinden çalışan sözleşmeler.</h2>
+          <div class="case-callout"><p>Görüntüler, uygulamanın <strong>yerel Swagger oturumlarından</strong> alınmıştır. İzole Redis ve deterministik yerel sağlayıcı verisi kullanılır. Gösterilen değerler canlı hava durumu değildir.</p></div>
+          <div class="case-gallery">
+            <figure><a href="../../assets/screenshots/weather-overview.jpg" target="_blank" rel="noopener noreferrer" aria-label="Swagger uç noktaları görüntüsünü tam boy aç (yeni sekme)"><img src="../../assets/screenshots/weather-overview.jpg" alt="WeatherApiWrapper Swagger arayüzünde current, forecast ve history GET uç noktaları" width="1265" height="712" loading="lazy"></a><figcaption>Güncel, tahmin ve geçmiş uç noktaları ile yanıt şemalarının yer aldığı gerçek Swagger görünümü.</figcaption></figure>
+            <figure><a href="../../assets/screenshots/weather-cache-hit.jpg" target="_blank" rel="noopener noreferrer" aria-label="Önbellek yanıtını tam boy aç (yeni sekme)"><img src="../../assets/screenshots/weather-cache-hit.jpg" alt="Istanbul güncel hava durumu sorgusunun 200 durum kodlu JSON yanıtında fromCache true değeri" width="1265" height="712" loading="lazy"></a><figcaption>Istanbul sorgusuna dönen 200 yanıtı. <code>fromCache: true</code>, verinin önbellekten geldiğini gösteriyor; hava durumu değerleri yerel gösterim verisi.</figcaption></figure>
+            <figure><a href="../../assets/screenshots/weather-validation.jpg" target="_blank" rel="noopener noreferrer" aria-label="Doğrulama hatasını tam boy aç (yeni sekme)"><img src="../../assets/screenshots/weather-validation.jpg" alt="days 11 olan tahmin sorgusuna dönen 400 Bad Request ve izin verilen 1 ile 10 gün aralığını belirten JSON hata mesajı" width="1265" height="712" loading="lazy"></a><figcaption><code>days=11</code> sorgusu, izin verilen aralığın dışında. Yanıt, standart JSON yapısıyla 400 durum kodu döndürüyor.</figcaption></figure>
+          </div>
+        </section>
+        <section class="case-section" id="kalite" aria-labelledby="kalite-title">
+          <span class="case-number">05 / TEST YAKLAŞIMI</span>
+          <h2 id="kalite-title">Başarılı yanıtın ötesindeki davranışlar.</h2>
+          <p>xUnit testleri; veri eşleme, tekrar çağrıda önbellek kullanımı, hatalı sorgular, bozuk sağlayıcı JSON'u, timeout ve açık circuit davranışlarını kapsıyor. Başlangıçta eksik API anahtarı veya geçersiz sağlayıcı adresi de doğrulanıyor. Ayrı resilience testleri, DI üzerinden kurulan gerçek HTTP dayanıklılık hattını ve çağıran iptalini ele alıyor.</p>
+          <p>Uygulama entegrasyon testlerinde sağlayıcı kontrollü bir HTTP handler, cache ise bellek içi bir uygulama ile değiştiriliyor. Bu testlerin sonucu, canlı sağlayıcı veya gerçek Redis bağlantısının doğrulanması anlamına gelmiyor.</p>
+          <p>Kaynak depodaki başarılı CI çalıştırması; biçim kontrolü, bağımlılık denetimi, Release derleme, test ve coverage çıktısı ile Linux üzerinde Docker Compose derlemesini içeriyor.</p>
+          <div class="case-evidence-links"><a href="https://github.com/batuhansacofficial/WeatherApiWrapper/actions/runs/31283932993" target="_blank" rel="noopener noreferrer">Başarılı CI çalıştırması <span aria-hidden="true">↗</span><span class="sr-only"> (yeni sekme)</span></a><a href="https://github.com/batuhansacofficial/WeatherApiWrapper/tree/d01b4d8eff014672cd2830bc9b1b2e95f6e761e7/WeatherApiWrapper.Tests" target="_blank" rel="noopener noreferrer">Test kaynakları <span aria-hidden="true">↗</span><span class="sr-only"> (yeni sekme)</span></a></div>
+        </section>
+        <section class="case-section" id="kapsam" aria-labelledby="kapsam-title">
+          <span class="case-number">06 / KAPSAM</span>
+          <h2 id="kapsam-title">Yerel geliştirme ve portfolyo odağı.</h2>
+          <p>Proje, dış servis erişimi ile uygulama davranışını ayrı sınırlar içinde ele alma çalışması. Yerel çalıştırma ve Docker Compose adımları depoda bulunuyor. Authentication ve rate limiting bu sürümün kapsamında değil; herkese açık bir API demosu sunulmuyor.</p>
+          <div class="case-evidence-links"><a href="https://github.com/batuhansacofficial/WeatherApiWrapper/blob/d01b4d8eff014672cd2830bc9b1b2e95f6e761e7/README.md" target="_blank" rel="noopener noreferrer">Kurulum ve API dokümantasyonu <span aria-hidden="true">↗</span><span class="sr-only"> (yeni sekme)</span></a><a href="https://github.com/batuhansacofficial/WeatherApiWrapper/blob/d01b4d8eff014672cd2830bc9b1b2e95f6e761e7/WeatherApiWrapper/Services/WeatherService.cs" target="_blank" rel="noopener noreferrer">Servis ve cache uygulaması <span aria-hidden="true">↗</span><span class="sr-only"> (yeni sekme)</span></a></div>
+        </section>
+      </article>
+    </div>
+    <a class="case-next" href="../unitwise/"><span class="case-next-label">SONRAKİ PROJE</span><strong>Unitwise <span aria-hidden="true">↗</span></strong></a>
+  </main>
+  <footer class="container case-footer"><p>© 2026 Batuhan Saç</p><div><a href="../../">Ana sayfa</a><a href="mailto:batuhansac53@gmail.com">E-posta <span aria-hidden="true">↗</span></a></div></footer>
+</body>
+</html>

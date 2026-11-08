@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f2eb">
+  <title>Unitwise — Proje İncelemesi · Batuhan Saç</title>
+  <meta name="description" content="Unitwise proje incelemesi: Razor Pages ve JSON API için ortak C# dönüşüm motoru, sayısal hassasiyet, doğrulama ve gerçek uygulama ekranları.">
+  <link rel="canonical" href="https://batuhansac.dev/projeler/unitwise/">
+  <meta property="og:title" content="Unitwise — Bir dönüşüm motoru, iki kullanım yolu.">
+  <meta property="og:description" content="Mimari kararlar, sayısal sınırlar, test yaklaşımı ve canlı Unitwise uygulamasından gerçek ekran görüntüleri.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://batuhansac.dev/projeler/unitwise/">
+  <meta property="og:image" content="https://batuhansac.dev/assets/screenshots/unitwise-temperature.jpg">
+  <meta property="og:image:alt" content="Unitwise uygulamasında 20 °C değerinin 68 °F sonucuna dönüştürülmesi">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="../../case-study.css">
+</head>
+<body class="case-page">
+  <a class="skip-link" href="#main">İçeriğe geç</a>
+  <header class="header case-header">
+    <div class="container header-inner">
+      <a class="wordmark" href="../../" aria-label="Batuhan Saç, ana sayfa">batuhan<span class="logo-dot">.</span></a>
+      <nav class="case-nav" aria-label="Ana gezinme">
+        <a href="../../#projeler">Projeler</a>
+        <a href="../../#ozgecmis">Özgeçmiş</a>
+        <a href="../../#iletisim">İletişim</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="container">
+    <nav class="case-breadcrumb" aria-label="Sayfa yolu">
+      <a href="../../">Ana sayfa</a><span aria-hidden="true">/</span>
+      <a href="../../#projeler">Projeler</a><span aria-hidden="true">/</span>
+      <span aria-current="page">Unitwise</span>
+    </nav>
+    <section class="case-hero" aria-labelledby="project-title">
+      <p class="eyebrow">PROJE İNCELEMESİ / 02</p>
+      <h1 id="project-title">Unitwise</h1>
+      <p class="case-lead">Bir dönüşüm motoru, iki kullanım yolu. Uzunluk, kütle, sıcaklık, alan ve hacim dönüşümlerini aynı C# kurallarıyla web arayüzüne ve JSON istemcilerine sunan uygulama.</p>
+      <div class="case-actions">
+        <a class="button button-dark" href="https://unitwise.onrender.com/" target="_blank" rel="noopener noreferrer">Canlı demoyu aç <span aria-hidden="true">↗</span><span class="sr-only"> (yeni sekme)</span></a>
+        <a class="text-link" href="https://github.com/batuhansacofficial/Unitwise" target="_blank" rel="noopener noreferrer">Kaynak kodunu incele <span aria-hidden="true">↗</span><span class="sr-only"> (yeni sekme)</span></a>
+      </div>
+      <dl class="case-meta">
+        <div><dt>Proje türü</dt><dd>Kişisel portfolyo projesi</dd></div>
+        <div><dt>Teknolojiler</dt><dd>.NET 10 · Razor Pages · Minimal API · xUnit · Docker</dd></div>
+        <div><dt>Yayın</dt><dd>Render üzerinde çalışan web uygulaması ve JSON API</dd></div>
+      </dl>
+    </section>
+    <div class="case-layout">
+      <aside class="case-toc" aria-label="İnceleme bölümleri">
+        <p>BU İNCELEMEDE</p>
+        <nav aria-label="Bölüm gezinmesi"><ol>
+          <li><a href="#problem">01 / Problem</a></li>
+          <li><a href="#mimari">02 / Mimari</a></li>
+          <li><a href="#kararlar">03 / Teknik kararlar</a></li>
+          <li><a href="#ekranlar">04 / Uygulamadan ekranlar</a></li>
+          <li><a href="#kalite">05 / Doğrulama</a></li>
+          <li><a href="#kapsam">06 / Kapsam ve sınırlar</a></li>
+        </ol></nav>
+      </aside>
+      <article class="case-content" aria-label="Unitwise proje incelemesi">
+        <section class="case-section" id="problem" aria-labelledby="problem-title">
+          <span class="case-number">01 / PROBLEM</span>
+          <h2 id="problem-title">Sonucun yanında,<br><span class="serif">hesabın bağlamı.</span></h2>
+          <p>Bir birim dönüştürücü yalnızca sayı üretmemeli. Kullanılan ölçü birimi, dönüşüm formülü ve gösterimdeki yuvarlama da anlaşılır olmalı. Hatalı bir değer girildiğinde kullanıcı hangi alanı düzeltmesi gerektiğini görebilmeli.</p>
+          <p>Unitwise bu ihtiyacı beş dönüşüm kategorisiyle ele alıyor. Web formu ile JSON API'nin farklı hesaplama kuralları geliştirmesini önlemek için sayısal işlemler ve doğrulama tek bir serviste toplanıyor.</p>
+        </section>
+        <section class="case-section" id="mimari" aria-labelledby="architecture-title">
+          <span class="case-number">02 / MİMARİ</span>
+          <h2 id="architecture-title">İki giriş noktası,<br><span class="serif">ortak kurallar.</span></h2>
+          <p>Razor Pages formu sunucuda işleniyor. Minimal API aynı yeteneği programatik istemcilere açıyor. Her ikisi de durumsuz <code>ConversionService</code> sınıfını çağırıyor; aralarında bir HTTP çağrısı veya ayrı hesaplama katmanı bulunmuyor.</p>
+          <ol class="case-flow" aria-label="İstekten dönüşüm sonucuna uygulama akışı">
+            <li><strong>Form veya JSON</strong><span>Razor Pages ve Minimal API, isteği ortak servise iletir.</span></li>
+            <li><strong>ConversionService</strong><span>Girdi, birim ve aralık doğrulamasını; hesabı ve sonuç gösterimini yürütür.</span></li>
+            <li><strong>UnitCatalog</strong><span>Beş kategorinin birimlerini, katsayılarını ve varsayılanlarını tanımlar.</span></li>
+          </ol>
+          <p>JavaScript hesaplama yapmıyor. Formu arka planda gönderip sunucunun ürettiği paneli güncelliyor. Son beş başarılı dönüşümün geçmişi tarayıcıda tutuluyor; bu özellik için sunucuda veri tabanı gerekmiyor.</p>
+        </section>
+        <section class="case-section" id="kararlar" aria-labelledby="decisions-title">
+          <span class="case-number">03 / TEKNİK KARARLAR</span>
+          <h2 id="decisions-title">Küçük araçta,<br><span class="serif">belirgin tercihler.</span></h2>
+          <div class="decision-grid">
+            <article><h3>Rasyonel ara hesaplar</h3><p>Dönüşüm katsayıları, <code>BigInteger</code> tabanlı rasyonel işlemlerle son <code>decimal</code> sonuca kadar korunuyor. Böylece ara işlemin taşması, temsil edilebilir bir sonucun hesaplanmasını engellemiyor.</p></article>
+            <article><h3>Hesap ve gösterim ayrı</h3><p>Varsayılan gösterim altı ondalık basamağa yuvarlanıyor. Küçük sıfır olmayan sonuçlarda bilimsel gösterim kullanılıyor; yuvarlama değeri değiştirdiğinde yaklaşık işareti gösteriliyor.</p></article>
+            <article><h3>JSON'da sayısal metinler</h3><p><code>value</code> ve <code>inputValue</code> alanları string olarak dönüyor. Bu tercih, JavaScript istemcilerinde ondalık basamak kaybını önlemeyi amaçlıyor. <code>formattedValue</code> ise sunum metnini taşıyor.</p></article>
+            <article><h3>Temel akış bağımsız</h3><p>Form, JavaScript kapalıyken de sunucuya gönderilebiliyor. Geçmiş, kopyalama ve arka plan güncellemesi ek özellikler olarak kalıyor. Tarayıcı depolaması kullanılamadığında geçmiş o ziyaretle sınırlanıyor.</p></article>
+          </div>
+        </section>
+        <section class="case-section" id="ekranlar" aria-labelledby="screens-title">
+          <span class="case-number">04 / UYGULAMADAN EKRANLAR</span>
+          <h2 id="screens-title">Başarılı sonuç ve<br><span class="serif">geçersiz girdi.</span></h2>
+          <p>Aşağıdaki görüntüler canlı uygulamadaki gerçek form işlemlerini gösteriyor. Görselleri tam boyutuyla açmak için üzerlerine tıklayabilirsin.</p>
+          <div class="case-gallery">
+            <figure>
+              <a href="../../assets/screenshots/unitwise-temperature.jpg" target="_blank" rel="noopener noreferrer" aria-label="20 °C dönüşümünün ekran görüntüsünü tam boyutta aç, yeni sekme">
+                <img src="../../assets/screenshots/unitwise-temperature.jpg" alt="Canlı Unitwise arayüzünde 20 °C için 68 °F sonucu, dönüşüm formülü ve son dönüşümler geçmişi" width="1265" height="1040" loading="lazy">
+              </a>
+              <figcaption>20 °C → 68 °F: başarılı form gönderimi, açıklanan formül ve tarayıcı geçmişi. 8 Kasım 2026, <a href="https://unitwise.onrender.com/" target="_blank" rel="noopener noreferrer">unitwise.onrender.com<span class="sr-only"> (yeni sekme)</span></a>.</figcaption>
+            </figure>
+            <figure>
+              <a href="../../assets/screenshots/unitwise-validation.jpg" target="_blank" rel="noopener noreferrer" aria-label="Mutlak sıfır doğrulamasının ekran görüntüsünü tam boyutta aç, yeni sekme">
+                <img src="../../assets/screenshots/unitwise-validation.jpg" alt="Unitwise arayüzünde -1 Kelvin değerini Fahrenheit'a dönüştürme girişimi için mutlak sıfır doğrulama hatası" width="1265" height="1131" loading="lazy">
+              </a>
+              <figcaption>−1 K girdisi: mutlak sıfırın altındaki sıcaklık reddediliyor ve geçerli bir sonuç gösterilmiyor. 8 Kasım 2026, canlı Unitwise uygulaması.</figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="case-section" id="kalite" aria-labelledby="quality-title">
+          <span class="case-number">05 / DOĞRULAMA</span>
+          <h2 id="quality-title">Kuralları ve<br><span class="serif">giriş noktalarını sınamak.</span></h2>
+          <p>xUnit testleri referans dönüşümleri, katalogdaki birim çiftlerinin gidiş-dönüş davranışını, sıcaklık sınırlarını, kültürden bağımsız sayı ayrıştırmayı ve taşma durumlarını kapsıyor. HTTP entegrasyon testleri ise API sözleşmesini, doğrulama yanıtlarını, yerel form gönderimini ve antiforgery korumasını kontrol ediyor.</p>
+          <p>GitHub Actions; Release derlemesi, testler ve kapsam raporundan sonra Docker imajını oluşturup non-root kullanıcıyla temel çalışma kontrolü yapıyor. Kaynak sürümüne ait CI kaydı aşağıda incelenebilir.</p>
+          <div class="case-callout"><p><strong>Kontrol edilen davranış:</strong> Canlı uygulamada 20 °C girdisi 68 °F sonucunu ve formülünü gösteriyor. −1 K girdisi ise alanla ilişkili bir doğrulama hatası üretiyor; geçerli bir dönüşüm sonucu sunulmuyor.</p></div>
+          <div class="case-evidence-links">
+            <a href="https://github.com/batuhansacofficial/Unitwise/blob/41e56296a208b87577adcc49cffb8a1943a15660/UnitConverter/Conversion/ConversionService.cs" target="_blank" rel="noopener noreferrer">Dönüşüm motoru ↗<span class="sr-only"> (yeni sekme)</span></a>
+            <a href="https://github.com/batuhansacofficial/Unitwise/blob/41e56296a208b87577adcc49cffb8a1943a15660/docs/architecture.md" target="_blank" rel="noopener noreferrer">Mimari ve tercihler ↗<span class="sr-only"> (yeni sekme)</span></a>
+            <a href="https://github.com/batuhansacofficial/Unitwise/tree/41e56296a208b87577adcc49cffb8a1943a15660/UnitConverter.Tests" target="_blank" rel="noopener noreferrer">Test kaynakları ↗<span class="sr-only"> (yeni sekme)</span></a>
+            <a href="https://github.com/batuhansacofficial/Unitwise/actions/runs/39178205386" target="_blank" rel="noopener noreferrer">CI çalıştırması ↗<span class="sr-only"> (yeni sekme)</span></a>
+            <a href="https://unitwise.onrender.com/swagger" target="_blank" rel="noopener noreferrer">Swagger UI ↗<span class="sr-only"> (yeni sekme)</span></a>
+          </div>
+        </section>
+        <section class="case-section" id="kapsam" aria-labelledby="scope-title">
+          <span class="case-number">06 / KAPSAM VE SINIRLAR</span>
+          <h2 id="scope-title">Sınırları açık<br><span class="serif">bir dönüşüm aracı.</span></h2>
+          <p>Sonuç aralığı .NET <code>decimal</code> türüyle sınırlı. Temsil edilemeyen çok büyük veya çok küçük sonuçlar doğrulama hatası üretiyor. Girdiler nokta ondalık ayırıcıyla, gruplama işareti olmadan kabul ediliyor; bilimsel gösterim de destekleniyor.</p>
+          <p>“Weight” kategorisi kütleyi ifade ediyor; hacimdeki cup ve gallon birimleri US ölçüsü olarak etiketleniyor. Para birimi dönüşümü, hesap sistemi ve sunucuda geçmiş saklama bu projenin kapsamında bulunmuyor. Canlı demo, barındırma hizmetinin uyku durumundan çıkarken ilk açılışta bekletebilir.</p>
+        </section>
+      </article>
+    </div>
+    <a class="case-next" href="../weather-api-wrapper/"><span class="case-next-label">DİĞER PROJEYİ İNCELE</span><strong>WeatherApiWrapper <span aria-hidden="true">↗</span></strong></a>
+  </main>
+  <footer class="container case-footer">
+    <p>© 2026 Batuhan Saç</p>
+    <div><a href="../../">Ana sayfaya dön ↑</a><a href="mailto:batuhansac53@gmail.com">E-posta gönder ↗</a></div>
+  </footer>
+</body>
+</html>

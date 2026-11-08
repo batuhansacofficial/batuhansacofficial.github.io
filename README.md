@@ -1,35 +1,39 @@
-# Batuhan Saç — Portfolio
+# Batuhan Saç - Portfolyo
 
-Personal portfolio and biography website, with a Turkish interface, selected .NET projects, and professional contact links.
+Türkçe kişisel portfolyo; .NET projeleri, ayrıntılı proje incelemeleri, gerçek uygulama ekranları ve Türkçe/İngilizce CV içerir.
 
-**Website:** https://batuhansac.dev/
+**Site:** https://batuhansac.dev/
 
-## Structure
+## Dosya yapısı
 
-- `index.html`: page content and metadata
-- `style.css`: responsive layout and visual styles
-- `app.js`: navigation, project dialogs, and reading progress
-- `assets/`: profile photo, favicon, and project concept illustrations
-- `CONTENT-SOURCES.md`: sources for profile and project facts
+- `index.html`: ana sayfa, proje kartları, CV indirme ve iletişim
+- `style.css`: ana sayfanın duyarlı tasarımı
+- `case-study.css`: proje inceleme sayfalarının ortak tasarımı
+- `app.js`: mobil gezinme, okuma ilerlemesi ve e-posta adresi kopyalama
+- `projeler/weather-api-wrapper/`: API, Redis ve HTTP dayanıklılığı incelemesi
+- `projeler/unitwise/`: ortak dönüşüm motoru ve web/API incelemesi
+- `assets/screenshots/`: uygulamalardan alınan gerçek ekran görüntüleri
+- `assets/cv/`: tek sayfalık Türkçe ve İngilizce PDF
+- `CONTENT-SOURCES.md`: içerik ve görsellerin kaynakları
 
-The website is plain HTML, CSS, and JavaScript. No build step or package installation is required.
+Site HTML, CSS ve JavaScript kullanır. Derleme veya paket kurulumu gerekmez. Proje sayfaları ve indirme bağlantıları JavaScript olmadan da açılır.
 
-## Contact
+## Yerel önizleme
 
-The contact section displays `batuhansac53@gmail.com`, a message link, and a copy-address button. The message link opens the visitor's email application with a prepared subject. The site does not submit or store messages. LinkedIn and GitHub remain available as alternative contact channels.
-
-## Local preview
-
-Serve this directory with a static HTTP server. For example, with Python installed:
+Bu dizini statik bir HTTP sunucusuyla sunun. Python yüklüyse:
 
 ```sh
 python -m http.server 8000
 ```
 
-Then open http://localhost:8000/.
+Ardından http://localhost:8000/ adresini açın.
 
-## Publishing
+## Yayın
 
-GitHub Pages publishes the root directory of the `main` branch. Updates to that branch are published automatically. `.nojekyll` keeps the static files unchanged during publication.
+GitHub Pages, `main` dalının kök dizinini yayımlar. `.nojekyll` statik dosyaların doğrudan sunulmasını sağlar. `CNAME`, `batuhansac.dev` alan adını tanımlar; `sitemap.xml` ana sayfa ile iki incelemeyi listeler.
 
-The project images are labeled concept illustrations, rather than screenshots of the applications.
+## İletişim ve CV
+
+Mesaj bağlantısı, ziyaretçinin e-posta uygulamasını açar. Site mesaj saklamaz. Kopyalama başarısız olursa adresin elle kopyalanabileceğini bildirir. CV dosyaları yalnızca teknik profil, projeler ve profil bağlantılarını içerir. PDF'lerde eğitim, sertifika, işyeri, çalışma tarihi, konum, telefon ve e-posta bilgileri bulunmaz.
+
+WeatherApiWrapper görüntüleri gerçek yerel Swagger oturumlarıdır ve kontrollü sağlayıcı verisi içerir. Unitwise görüntüleri, 8 Kasım 2026 tarihinde canlı uygulamadan alınmıştır. Görsel açıklamaları bu farkı belirtir.
