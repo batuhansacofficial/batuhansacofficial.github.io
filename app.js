@@ -1,8 +1,9 @@
 const menuButton = document.querySelector('.menu-button');
 const mobileNav = document.querySelector('#mobile-nav');
+const english = document.documentElement.lang === 'en';
 function setMenu(open) {
   menuButton.setAttribute('aria-expanded', String(open));
-  menuButton.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+  menuButton.setAttribute('aria-label', english ? (open ? 'Close menu' : 'Open menu') : (open ? 'Menüyü kapat' : 'Menüyü aç'));
   mobileNav.hidden = !open;
 }
 menuButton.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
@@ -32,9 +33,9 @@ copyEmailButton.addEventListener('click', async () => {
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
     await navigator.clipboard.writeText(contactEmail.textContent.trim());
-    copyEmailStatus.textContent = 'E-posta adresi kopyalandı.';
+    copyEmailStatus.textContent = english ? 'Email address copied.' : 'E-posta adresi kopyalandı.';
   } catch {
-    copyEmailStatus.textContent = 'Adres kopyalanamadı. Yukarıdaki adresi seçip kopyalayabilirsin.';
+    copyEmailStatus.textContent = english ? 'The address could not be copied. Select and copy the address above.' : 'Adres kopyalanamadı. Yukarıdaki adresi seçip kopyalayabilirsin.';
   } finally {
     copyEmailButton.disabled = false;
   }

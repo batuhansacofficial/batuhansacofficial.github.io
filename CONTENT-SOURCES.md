@@ -34,3 +34,7 @@ Depo adı `Unitwise` olarak güncellenmiştir; eski `UnitConverter` adresi yönl
 `unitwise-temperature.jpg` ve `unitwise-validation.jpg`, 8 Kasım 2026 tarihinde canlı uygulamada gerçek form gönderimleriyle alınmıştır: 20 °C -> 68 °F ve -1 K için mutlak sıfır doğrulama hatası.
 
 İncelemeler test kapsamını anlatır ve kayıtlı CI çalıştırmalarına bağlanır. Yeniden ölçülmemiş test sayısı, performans veya kapsam oranı yeni sonuç olarak sunulmaz.
+
+## Dil sürümleri
+
+İngilizce ana sayfa ve proje incelemeleri, Türkçe sayfaların aynı teknik olguları ve sınırları koruyan çevirileridir. Ekran görüntüleri ile teknik CV PDF'leri ortak dosyalardır. Sayısal değerler, proje sürümleri ve doğrulama iddiaları dil değişiminde değiştirilmez.

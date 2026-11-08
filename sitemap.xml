@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://batuhansac.dev/</loc></url>
-  <url><loc>https://batuhansac.dev/projeler/weather-api-wrapper/</loc></url>
-  <url><loc>https://batuhansac.dev/projeler/unitwise/</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://batuhansac.dev/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://batuhansac.dev/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://batuhansac.dev/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://batuhansac.dev/"/>
+  </url>
+  <url>
+    <loc>https://batuhansac.dev/en/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://batuhansac.dev/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://batuhansac.dev/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://batuhansac.dev/"/>
+  </url>
+  <url>
+    <loc>https://batuhansac.dev/projeler/weather-api-wrapper/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://batuhansac.dev/projeler/weather-api-wrapper/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://batuhansac.dev/en/projects/weather-api-wrapper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://batuhansac.dev/projeler/weather-api-wrapper/"/>
+  </url>
+  <url>
+    <loc>https://batuhansac.dev/en/projects/weather-api-wrapper/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://batuhansac.dev/projeler/weather-api-wrapper/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://batuhansac.dev/en/projects/weather-api-wrapper/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://batuhansac.dev/projeler/weather-api-wrapper/"/>
+  </url>
+  <url>
+    <loc>https://batuhansac.dev/projeler/unitwise/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://batuhansac.dev/projeler/unitwise/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://batuhansac.dev/en/projects/unitwise/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://batuhansac.dev/projeler/unitwise/"/>
+  </url>
+  <url>
+    <loc>https://batuhansac.dev/en/projects/unitwise/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://batuhansac.dev/projeler/unitwise/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://batuhansac.dev/en/projects/unitwise/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://batuhansac.dev/projeler/unitwise/"/>
+  </url>
 </urlset>

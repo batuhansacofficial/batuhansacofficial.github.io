@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f2eb">
+  <title>Unitwise — Case Study · Batuhan Saç</title>
+  <meta name="description" content="A Unitwise case study: a shared C# conversion engine for Razor Pages and a JSON API, numeric precision, validation, and screenshots from the running application.">
+  <link rel="canonical" href="https://batuhansac.dev/en/projects/unitwise/">
+  <link rel="alternate" hreflang="tr" href="https://batuhansac.dev/projeler/unitwise/">
+  <link rel="alternate" hreflang="en" href="https://batuhansac.dev/en/projects/unitwise/">
+  <link rel="alternate" hreflang="x-default" href="https://batuhansac.dev/projeler/unitwise/">
+  <meta property="og:title" content="Unitwise — One conversion engine, two ways to use it.">
+  <meta property="og:description" content="Architecture decisions, numeric limits, testing, and real screenshots from the live Unitwise application.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://batuhansac.dev/en/projects/unitwise/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="tr_TR">
+  <meta property="og:image" content="https://batuhansac.dev/assets/screenshots/unitwise-temperature.jpg">
+  <meta property="og:image:alt" content="The Unitwise application converting 20 °C to 68 °F">
+  <link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="../../../case-study.css">
+  <link rel="stylesheet" href="../../../language.css">
+  <script src="../../../language.js" defer></script>
+</head>
+<body class="case-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="header case-header">
+    <div class="container header-inner">
+      <a class="wordmark" href="../../" aria-label="Batuhan Saç, home">batuhan<span class="logo-dot">.</span></a>
+      <nav class="case-nav" aria-label="Main navigation">
+        <a href="../../#projeler">Projects</a>
+        <a href="../../#ozgecmis">Résumé</a>
+        <a href="../../#iletisim">Contact</a>
+      </nav>
+      <nav class="language-switch" aria-label="Website language">
+        <a href="../../../projeler/unitwise/" lang="tr" hreflang="tr" data-language-link="">TR</a>
+        <a href="./" lang="en" hreflang="en" aria-current="page" data-language-link="">EN</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="container">
+    <nav class="case-breadcrumb" aria-label="Breadcrumb">
+      <a href="../../">Home</a><span aria-hidden="true">/</span>
+      <a href="../../#projeler">Projects</a><span aria-hidden="true">/</span>
+      <span aria-current="page">Unitwise</span>
+    </nav>
+    <section class="case-hero" aria-labelledby="project-title">
+      <p class="eyebrow">CASE STUDY / 02</p>
+      <h1 id="project-title">Unitwise</h1>
+      <p class="case-lead">One conversion engine, two ways to use it. A web application and JSON API that share the same C# rules for length, mass, temperature, area, and volume conversions.</p>
+      <div class="case-actions">
+        <a class="button button-dark" href="https://unitwise.onrender.com/" target="_blank" rel="noopener noreferrer">Open live demo <span aria-hidden="true">↗</span><span class="sr-only"> (new tab)</span></a>
+        <a class="text-link" href="https://github.com/batuhansacofficial/Unitwise" target="_blank" rel="noopener noreferrer">Explore the source <span aria-hidden="true">↗</span><span class="sr-only"> (new tab)</span></a>
+      </div>
+      <dl class="case-meta">
+        <div><dt>Project type</dt><dd>Personal portfolio project</dd></div>
+        <div><dt>Technologies</dt><dd>.NET 10 · Razor Pages · Minimal API · xUnit · Docker</dd></div>
+        <div><dt>Deployment</dt><dd>Web application and JSON API running on Render</dd></div>
+      </dl>
+    </section>
+    <div class="case-layout">
+      <aside class="case-toc" aria-label="Case study sections">
+        <p>IN THIS CASE STUDY</p>
+        <nav aria-label="Section navigation"><ol>
+          <li><a href="#problem">01 / Problem</a></li>
+          <li><a href="#mimari">02 / Architecture</a></li>
+          <li><a href="#kararlar">03 / Technical decisions</a></li>
+          <li><a href="#ekranlar">04 / Application screenshots</a></li>
+          <li><a href="#kalite">05 / Verification</a></li>
+          <li><a href="#kapsam">06 / Scope and limits</a></li>
+        </ol></nav>
+      </aside>
+      <article class="case-content" aria-label="Unitwise case study">
+        <section class="case-section" id="problem" aria-labelledby="problem-title">
+          <span class="case-number">01 / PROBLEM</span>
+          <h2 id="problem-title">The result,<br><span class="serif">with its context.</span></h2>
+          <p>A unit converter needs to explain the units, formula, and rounding behind its result. When a value is invalid, the interface should show which field needs attention.</p>
+          <p>Unitwise addresses this across five conversion categories. Numeric operations and validation live in one service, keeping the web form and JSON API consistent.</p>
+        </section>
+        <section class="case-section" id="mimari" aria-labelledby="architecture-title">
+          <span class="case-number">02 / ARCHITECTURE</span>
+          <h2 id="architecture-title">Two entry points,<br><span class="serif">shared rules.</span></h2>
+          <p>Razor Pages processes the form on the server. A Minimal API exposes the same capabilities to programmatic clients. Both call the stateless <code>ConversionService</code> directly, without an HTTP call between them or a separate calculation layer.</p>
+          <ol class="case-flow" aria-label="Application flow from request to conversion result">
+            <li><strong>Form or JSON</strong><span>Razor Pages and the Minimal API pass requests to the shared service.</span></li>
+            <li><strong>ConversionService</strong><span>Validates input, units, and ranges; calculates and formats the result.</span></li>
+            <li><strong>UnitCatalog</strong><span>Defines units, factors, and defaults for all five categories.</span></li>
+          </ol>
+          <p>JavaScript submits the form in the background and updates the panel rendered by the server; it performs no conversion arithmetic. The last five successful conversions stay in the browser, so history needs no server database.</p>
+        </section>
+        <section class="case-section" id="kararlar" aria-labelledby="decisions-title">
+          <span class="case-number">03 / TECHNICAL DECISIONS</span>
+          <h2 id="decisions-title">A small tool,<br><span class="serif">deliberate choices.</span></h2>
+          <div class="decision-grid">
+            <article><h3>Rational intermediate values</h3><p><code>BigInteger</code>-based rational arithmetic preserves conversion factors until the final <code>decimal</code> result. Intermediate overflow therefore does not prevent a representable result from being calculated.</p></article>
+            <article><h3>Calculation and display</h3><p>The default display rounds to six decimal places. Small nonzero results use scientific notation, and an approximation sign appears when rounding changes the displayed value.</p></article>
+            <article><h3>Numeric strings in JSON</h3><p><code>value</code> and <code>inputValue</code> are returned as strings to preserve decimal digits in JavaScript clients. <code>formattedValue</code> carries the separate presentation text.</p></article>
+            <article><h3>An independent core flow</h3><p>The form works with JavaScript disabled. History, clipboard access, and background updates are optional enhancements. If browser storage is unavailable, history lasts only for the current visit.</p></article>
+          </div>
+        </section>
+        <section class="case-section" id="ekranlar" aria-labelledby="screens-title">
+          <span class="case-number">04 / APPLICATION SCREENSHOTS</span>
+          <h2 id="screens-title">A valid result and<br><span class="serif">invalid input.</span></h2>
+          <p>These screenshots show real form interactions in the live application. Select an image to open it at full size.</p>
+          <div class="case-gallery">
+            <figure>
+              <a href="../../../assets/screenshots/unitwise-temperature.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open the 20 °C conversion screenshot at full size in a new tab">
+                <img src="../../../assets/screenshots/unitwise-temperature.jpg" alt="The live Unitwise interface showing 20 °C converted to 68 °F, the conversion formula, and recent conversion history" width="1265" height="1040" loading="lazy">
+              </a>
+              <figcaption>20 °C → 68 °F: a successful form submission, its formula, and browser history. Captured on 8 November 2026 at <a href="https://unitwise.onrender.com/" target="_blank" rel="noopener noreferrer">unitwise.onrender.com<span class="sr-only"> (new tab)</span></a>.</figcaption>
+            </figure>
+            <figure>
+              <a href="../../../assets/screenshots/unitwise-validation.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open the absolute-zero validation screenshot at full size in a new tab">
+                <img src="../../../assets/screenshots/unitwise-validation.jpg" alt="The Unitwise interface showing an absolute-zero validation error when attempting to convert -1 Kelvin to Fahrenheit" width="1265" height="1131" loading="lazy">
+              </a>
+              <figcaption>−1 K input: temperatures below absolute zero are rejected and no valid result is shown. Captured on 8 November 2026 in the live Unitwise application.</figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="case-section" id="kalite" aria-labelledby="quality-title">
+          <span class="case-number">05 / VERIFICATION</span>
+          <h2 id="quality-title">Testing the rules<br><span class="serif">and entry points.</span></h2>
+          <p>xUnit tests cover reference conversions, round trips between catalog units, temperature boundaries, culture-independent number parsing, and overflow. HTTP integration tests check the API contract, validation responses, native form submissions, and antiforgery protection.</p>
+          <p>GitHub Actions runs a Release build, tests, and coverage collection, then builds a Docker image and performs a smoke test as a non-root user. The CI run for the referenced source version is linked below.</p>
+          <div class="case-callout"><p><strong>Verified behavior:</strong> In the live application, 20 °C produces 68 °F with its formula. A −1 K input produces a field-specific validation error without presenting a valid conversion result.</p></div>
+          <div class="case-evidence-links">
+            <a href="https://github.com/batuhansacofficial/Unitwise/blob/41e56296a208b87577adcc49cffb8a1943a15660/UnitConverter/Conversion/ConversionService.cs" target="_blank" rel="noopener noreferrer">Conversion engine ↗<span class="sr-only"> (new tab)</span></a>
+            <a href="https://github.com/batuhansacofficial/Unitwise/blob/41e56296a208b87577adcc49cffb8a1943a15660/docs/architecture.md" target="_blank" rel="noopener noreferrer">Architecture and tradeoffs ↗<span class="sr-only"> (new tab)</span></a>
+            <a href="https://github.com/batuhansacofficial/Unitwise/tree/41e56296a208b87577adcc49cffb8a1943a15660/UnitConverter.Tests" target="_blank" rel="noopener noreferrer">Test sources ↗<span class="sr-only"> (new tab)</span></a>
+            <a href="https://github.com/batuhansacofficial/Unitwise/actions/runs/39178205386" target="_blank" rel="noopener noreferrer">CI run ↗<span class="sr-only"> (new tab)</span></a>
+            <a href="https://unitwise.onrender.com/swagger" target="_blank" rel="noopener noreferrer">Swagger UI ↗<span class="sr-only"> (new tab)</span></a>
+          </div>
+        </section>
+        <section class="case-section" id="kapsam" aria-labelledby="scope-title">
+          <span class="case-number">06 / SCOPE AND LIMITS</span>
+          <h2 id="scope-title">A conversion tool<br><span class="serif">with explicit limits.</span></h2>
+          <p>Results are limited to the .NET <code>decimal</code> range. Values too large or too small to represent produce validation errors. Inputs use a decimal point without grouping separators; scientific notation is also supported.</p>
+          <p>The “Weight” category represents mass, and volume units such as cups and gallons are labeled as US measures. Currency conversion, user accounts, and server-side history are outside the project's scope. The live demo may take time to wake up after its hosting service has been idle.</p>
+        </section>
+      </article>
+    </div>
+    <a class="case-next" href="../weather-api-wrapper/"><span class="case-next-label">EXPLORE THE OTHER PROJECT</span><strong>WeatherApiWrapper <span aria-hidden="true">↗</span></strong></a>
+  </main>
+  <footer class="container case-footer">
+    <p>© 2026 Batuhan Saç</p>
+    <div><a href="../../">Back to home ↑</a><a href="mailto:batuhansac53@gmail.com">Send an email ↗</a></div>
+  </footer>
+</body>
+</html>
